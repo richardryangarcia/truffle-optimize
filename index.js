@@ -4,7 +4,14 @@ const { readdirSync } = require('fs');
 module.exports = async (config) => {
   const args = config._;
   const contract = config.c;
-  const numberOfBytes = config.b || 2 ;
+  let functionCount = 0;
+  let totalGasSaved = 0.0;
+  let numberOfBytes; 
+  if (config.b > 0 && config.b < 32){
+    numberOfBytes = config.b;
+  } else {
+    numberOfBytes = 2;
+  }
   const functions = args.slice(1,args.length);
   const contractsBuildDir = config.contracts_build_directory;
   let data = { blocks: [], s: [] };
@@ -13,30 +20,21 @@ module.exports = async (config) => {
   CHARS.forEach((c, index) => {
     CHAR_CODE_MAP[index] = c.charCodeAt(0);
   });
+  let availableContracts = [];
   let functionSignatures = [];
 
-  const gatherSignatures = (buildDir, contractName) => {
-    const artifactPath = `${buildDir}/${contractName}`
+  const gatherFunctionsWithSignatures = (artifactPath, functionNames) => {
+    let functionsArray = [];
     const artifact = require(artifactPath)
     artifact.abi.forEach(contractArtifact => {
-      if (contractArtifact.type === 'function' && contractArtifact.stateMutability != 'view'){
+      if (contractArtifact.type === 'function' && contractArtifact.stateMutability != 'view' && (functionNames.length === 0 || functionNames.length > 0 && functionNames.includes(contractArtifact.name) )){
         let types = contractArtifact.inputs.map(input => input.type);
-        functionSignatures.push(`${contractArtifact.name}(${types})`)
+        functionsArray.push([contractArtifact.name, `${contractArtifact.name}(${types})`])
       }
     })
+    return functionsArray;
   }
-
-  const selectSignatures = (buildDir, contractName, functionNames) => {
-    const artifactPath = `${buildDir}/${contractName}`
-    const artifact = require(artifactPath)
-    artifact.abi.forEach(contractArtifact => {
-      if (contractArtifact.type === 'function' && contractArtifact.stateMutability != 'view' && functionNames.includes(contractArtifact.name)){
-        let types = contractArtifact.inputs.map(input => input.type);
-        functionSignatures.push(`${contractArtifact.name}(${types})`)
-      }
-    })
-  }
-
+  
   const parseSignature = signature => {
     if (signature.charAt(signature.length - 1) != ')' || signature.indexOf(' ') !== -1) {
         return false;
@@ -53,8 +51,7 @@ module.exports = async (config) => {
   }
 
 
-  const find = obj => {
-    let orig_sig = obj.name + obj.args
+  const optimize = obj => {
     let sig = obj.name + obj.args;
     let args = toBytes(obj.args);
     let bytes = [0];
@@ -64,8 +61,8 @@ module.exports = async (config) => {
     hash.update(prefix);
     save(hash);
     let char, methodId = keccak256.array(sig);
-    
-    while (methodId[0]|| methodId[1]) {
+
+    while (methodId[0] || methodId[1]) {
         if (index >= CHARS.length) {
         increase(bytes);
         hash = keccak256.create();
@@ -84,7 +81,7 @@ module.exports = async (config) => {
     if (index) {
         sig = obj.name + '_' + toChars(bytes) + char + obj.args;
     }
-    return [orig_sig, sig, keccak256(sig).substr(0, 8)];
+    return [sig, keccak256(sig).substr(0, 8), 64*2];
   }
 
   const toBytes = str => {
@@ -158,28 +155,60 @@ module.exports = async (config) => {
 
 /////
 
-if (contract) {
-  if (functions && functions.length > 0 ){
-    selectSignatures(contractsBuildDir, contract, functions)
-  } else {
-    gatherSignatures(contractsBuildDir, contract)
-  }
-
-  console.log(`will run ${functionSignatures.length} functions from ${contract} contract`)
-} else { 
-  const files = readdirSync(contractsBuildDir);
+  const files = contract ? [contract] : readdirSync(contractsBuildDir);
   files.forEach(contractName => {
-    gatherSignatures(contractsBuildDir, contractName)
+    let contractObject = {
+      name: contractName.replace(".json", ""), 
+      artifactPath: `${contractsBuildDir}/${contractName}`,
+      estimatedGasSavings: 0.0,
+      functions: functions,
+      functionCount: 0
+    }
+    availableContracts.push(contractObject)
   })
-  console.log(`will run ${functionSignatures.length} functions across ${files.length} contracts`)
-}
 
-  let suggestions = [];
-  for (let i=0; i < functionSignatures.length; i++){
-    let a = parseSignature(functionSignatures[i]);
-    result = find(a);
-    suggestions.push(result)
-  }
+  console.log('\n\n///////////// GATHERING FUNCTIONS ////////////')
+  availableContracts.forEach(contract => {
+    console.log(`\n${contract.name}...`)
+    contract.functions = gatherFunctionsWithSignatures(contract.artifactPath, contract.functions);
+    contract.functionCount = contract.functions.length;
+    functionCount += contract.functionCount;
+    contract.functions.forEach(func => {
+      console.log(`\t${func[1]}`)
+    })
+  })
 
-  console.log(suggestions)
+  const contracts = availableContracts.filter((contract) => {
+    if (contract && contract.functionCount > 0){
+      return contract;
+    }
+  })
+
+  console.log(`\n\n //////// WILL OPTIMIZE ${functionCount} FUNCTION(S) ACROSS ${contracts.length} CONTRACTS ////////\n\n`);
+
+  let results = [];
+
+  contracts.forEach(contract => {
+    console.log(`Optimizing contract ${contract.name}.... `);
+    for (let i=0; i < contract.functions.length; i++){
+      let sig = parseSignature(contract.functions[i][1]);
+      result = optimize(sig);
+      contract.functions[i][2] = result[0];
+      contract.functions[i][3] = result[1];
+      contract.functions[i][4] = result[2];
+      contract.estimatedGasSavings += result[2];
+      results.push(contract.functions[i]);
+    }
+    totalGasSaved += contract.estimatedGasSavings;
+
+    console.log(`\tcontract savings: ${contract.estimatedGasSavings} wei`);
+  })
+
+  console.log("\n\n\n///////////// RESULTS ////////////\n")
+  results.forEach(result => {
+    console.log(`${result[1]} >> ${result[2]}`)
+  })
+  
+  console.log(`\n\n////////// TOTAL GAS SAVINGS: ${totalGasSaved} WEI //////////\n`);
+
 }
