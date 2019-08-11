@@ -1,9 +1,10 @@
 keccak256 = require('js-sha3').keccak256;
-const { readdirSync } = require('fs');
+const { readdirSync, writeFile, open, appendFileSync } = require('fs');
 
 module.exports = async (config) => {
   const args = config._;
   const contract = config.c;
+  const createIndex = config.createIndex;
   let functionCount = 0;
   let totalGasSaved = 0.0;
   let numberOfBytes; 
@@ -34,7 +35,7 @@ module.exports = async (config) => {
     })
     return functionsArray;
   }
-  
+
   const parseSignature = signature => {
     if (signature.charAt(signature.length - 1) != ')' || signature.indexOf(' ') !== -1) {
         return false;
@@ -204,8 +205,16 @@ module.exports = async (config) => {
     console.log(`\tcontract savings: ${contract.estimatedGasSavings} wei`);
   })
 
+  let newFile;
+  if (createIndex){
+    newFile = contractsBuildDir.replace("src/contracts","src/optimizedIndex.js");
+  }
+  
   console.log("\n\n\n///////////// RESULTS ////////////\n")
   results.forEach(result => {
+    if (newFile){
+      appendFileSync(newFile, `export const ${result[0]} = ${result[2].substring(0,result[2].indexOf("("))};\n`, ()=> console.log('saved to file'))
+    }
     console.log(`${result[1]} >> ${result[2]}`)
   })
   
