@@ -1,10 +1,12 @@
 keccak256 = require('js-sha3').keccak256;
-const { readdirSync, writeFile, open, appendFileSync } = require('fs');
+const { readdirSync, writeFileSync, open, appendFileSync, readFileSync } = require('fs');
 
 module.exports = async (config) => {
+  const workingDir=config.working_directory;
   const args = config._;
   const contract = config.c;
   const createIndex = config.createIndex;
+  const modify = config.modify;
   let functionCount = 0;
   let totalGasSaved = 0.0;
   let numberOfBytes; 
@@ -156,8 +158,17 @@ module.exports = async (config) => {
 
 /////
 
+  //get contract json
   const files = contract ? [contract] : readdirSync(contractsBuildDir);
-  files.forEach(contractName => {
+
+  //ensure contract json has a contract in contracts directory 
+  const contractFiles = readdirSync(`${workingDir}/contracts`);
+  filteredFiles = files.filter(file => {
+    return contractFiles.includes(file.replace('.json', '.sol'))
+  })
+
+  //gather valid contract info
+  filteredFiles.forEach(contractName => {
     let contractObject = {
       name: contractName.replace(".json", ""), 
       artifactPath: `${contractsBuildDir}/${contractName}`,
@@ -169,6 +180,7 @@ module.exports = async (config) => {
   })
 
   console.log('\n\n///////////// GATHERING FUNCTIONS ////////////')
+  //for each contract gather function info
   availableContracts.forEach(contract => {
     console.log(`\n${contract.name}...`)
     contract.functions = gatherFunctionsWithSignatures(contract.artifactPath, contract.functions);
@@ -179,6 +191,7 @@ module.exports = async (config) => {
     })
   })
 
+  //filter out contracts with no valid functions to optimize
   const contracts = availableContracts.filter((contract) => {
     if (contract && contract.functionCount > 0){
       return contract;
@@ -189,6 +202,7 @@ module.exports = async (config) => {
 
   let results = [];
 
+  //for each contract, loop through valid functions and optimize
   contracts.forEach(contract => {
     console.log(`Optimizing contract ${contract.name}.... `);
     for (let i=0; i < contract.functions.length; i++){
@@ -197,6 +211,7 @@ module.exports = async (config) => {
       contract.functions[i][2] = result[0];
       contract.functions[i][3] = result[1];
       contract.functions[i][4] = result[2];
+      contract.functions[i][5] = contract.name;
       contract.estimatedGasSavings += result[2];
       results.push(contract.functions[i]);
     }
@@ -205,16 +220,35 @@ module.exports = async (config) => {
     console.log(`\tcontract savings: ${contract.estimatedGasSavings} wei`);
   })
 
+  //if create index parameter is passed, create index file to add values to
   let newFile;
   if (createIndex){
     newFile = contractsBuildDir.replace("src/contracts","src/optimizedIndex.js");
   }
   
   console.log("\n\n\n///////////// RESULTS ////////////\n")
+  //loop through final results to add to index, update contracts and display values
   results.forEach(result => {
+    //add to index file if exists
     if (newFile){
       appendFileSync(newFile, `export const ${result[0]} = ${result[2].substring(0,result[2].indexOf("("))};\n`, ()=> console.log('saved to file'))
     }
+
+    // if modify parameter is passed, find function names in contract and update them 
+    // if(modify){
+    //   let new_contents ="";
+    //   let stringToReplace=`function[ \t]+${result[0]}\\(`;
+    //   var re = new RegExp(stringToReplace,"g");
+    //   try {
+    //     const file_contents = readFileSync(`${workingDir}/contracts/${result[5]}.sol`, 'utf8')
+    //     new_contents = file_contents.replace(re, `function ${result[2]}`);
+    //     console.log('done in here', new_contents)
+    //     // writeFileSync(`${workingDir}/contracts/${result[5]}.sol`, new_contents);
+    //   } catch(e){
+    //     console.log(e);
+    //   }
+    // }
+
     console.log(`${result[1]} >> ${result[2]}`)
   })
   
