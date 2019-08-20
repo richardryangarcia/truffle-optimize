@@ -26,13 +26,19 @@ module.exports = async (config) => {
   let availableContracts = [];
   let functionSignatures = [];
 
-  const gatherFunctionsWithSignatures = (artifactPath, functionNames) => {
+  const gatherFunctionsWithSignatures = (artifactPath, functionNames,  contractPath) => {
     let functionsArray = [];
+    console.log(contractPath);
     const artifact = require(artifactPath)
     artifact.abi.forEach(contractArtifact => {
       if (contractArtifact.type === 'function' && contractArtifact.stateMutability != 'view' && (functionNames.length === 0 || functionNames.length > 0 && functionNames.includes(contractArtifact.name) )){
-        let types = contractArtifact.inputs.map(input => input.type);
-        functionsArray.push([contractArtifact.name, `${contractArtifact.name}(${types})`])
+        const f_contents = readFileSync(contractPath);
+        let stringToMatch=`function[ \t]+${contractArtifact.name}\\(`; 
+        //check if function is contracts directory to avoid altering anything in node modules 
+        if(new RegExp(stringToMatch).test(f_contents)){
+          let types = contractArtifact.inputs.map(input => input.type);
+          functionsArray.push([contractArtifact.name, `${contractArtifact.name}(${types})`])
+        }
       }
     })
     return functionsArray;
@@ -64,6 +70,7 @@ module.exports = async (config) => {
     hash.update(prefix);
     save(hash);
     let char, methodId = keccak256.array(sig);
+    console.log(methodId);
 
     while (methodId[0] || methodId[1]) {
         if (index >= CHARS.length) {
@@ -158,7 +165,7 @@ module.exports = async (config) => {
 
 /////
 
-  //get contract json
+  //get contract Json files for all contracts to be optimized
   const files = contract ? [contract] : readdirSync(contractsBuildDir);
 
   //ensure contract json has a contract in contracts directory 
@@ -172,6 +179,7 @@ module.exports = async (config) => {
     let contractObject = {
       name: contractName.replace(".json", ""), 
       artifactPath: `${contractsBuildDir}/${contractName}`,
+      contractPath: `${workingDir}/contracts/${contractName.replace(".json", "")}.sol`,
       estimatedGasSavings: 0.0,
       functions: functions,
       functionCount: 0
@@ -183,7 +191,7 @@ module.exports = async (config) => {
   //for each contract gather function info
   availableContracts.forEach(contract => {
     console.log(`\n${contract.name}...`)
-    contract.functions = gatherFunctionsWithSignatures(contract.artifactPath, contract.functions);
+    contract.functions = gatherFunctionsWithSignatures(contract.artifactPath, contract.functions, contract.contractPath);
     contract.functionCount = contract.functions.length;
     functionCount += contract.functionCount;
     contract.functions.forEach(func => {
@@ -235,19 +243,20 @@ module.exports = async (config) => {
     }
 
     // if modify parameter is passed, find function names in contract and update them 
-    // if(modify){
-    //   let new_contents ="";
-    //   let stringToReplace=`function[ \t]+${result[0]}\\(`;
-    //   var re = new RegExp(stringToReplace,"g");
-    //   try {
-    //     const file_contents = readFileSync(`${workingDir}/contracts/${result[5]}.sol`, 'utf8')
-    //     new_contents = file_contents.replace(re, `function ${result[2]}`);
-    //     console.log('done in here', new_contents)
-    //     // writeFileSync(`${workingDir}/contracts/${result[5]}.sol`, new_contents);
-    //   } catch(e){
-    //     console.log(e);
-    //   }
-    // }
+    //WARNING: beware of override functions. if any functions are overriding functions from node_modules,
+    // run contracts one at a time with -f arguments
+    if(modify){
+      let new_contents ="";
+      let stringToReplace=`function[ \t]+${result[0]}\\(`;
+      var re = new RegExp(stringToReplace,"g");
+      try {
+        const file_contents = readFileSync(`${workingDir}/contracts/${result[5]}.sol`, 'utf8')
+        new_contents = file_contents.replace(re, `function ${result[2].substring(0,result[2].indexOf('('))}(`);
+        writeFileSync(`${workingDir}/contracts/${result[5]}.sol`, new_contents);
+      } catch(e){
+        console.log(e);
+      }
+    }
 
     console.log(`${result[1]} >> ${result[2]}`)
   })
