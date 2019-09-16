@@ -1,0 +1,299 @@
+{
+  "contractName": "ERC165",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_interfaceID",
+          "type": "bytes4"
+        }
+      ],
+      "name": "supportsInterface",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.8+commit.23d335f2\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":true,\"inputs\":[{\"name\":\"_interfaceID\",\"type\":\"bytes4\"}],\"name\":\"supportsInterface\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"details\":\"A standard for detecting smart contract interfaces. See: https://github.com/ethereum/EIPs/blob/master/EIPS/eip-165.md. The MIT License Copyright (c) 2017-2018 0xcert, d.o.o. https://0xcert.org Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \\\"Software\\\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED \\\"AS IS\\\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\",\"methods\":{\"supportsInterface(bytes4)\":{\"details\":\"Checks if the smart contract includes a specific interface.\",\"params\":{\"_interfaceID\":\"The interface identifier, as specified in ERC-165.\"},\"return\":\"True if _interfaceID is supported, false otherwise.\"}}},\"userdoc\":{\"methods\":{\"supportsInterface(bytes4)\":{\"notice\":\"This function uses less than 30,000 gas.\"}}}},\"settings\":{\"compilationTarget\":{\"/Users/hz/workspace/nightfall/contracts/ERC165.sol\":\"ERC165\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/hz/workspace/nightfall/contracts/ERC165.sol\":{\"keccak256\":\"0x785f53082067cc86700c30e904225b6d4b2d78140d6f596e8182ac650d1892d9\",\"urls\":[\"bzzr://742dce911a6c3e7fd1d5d6c8ae8c324a4f40da07f6919816d2a0ef4258cc1ede\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "pragma solidity 0.5.8;\n\n/**\n * @dev A standard for detecting smart contract interfaces.\n * See: https://github.com/ethereum/EIPs/blob/master/EIPS/eip-165.md.\n The MIT License\n\nCopyright (c) 2017-2018 0xcert, d.o.o. https://0xcert.org\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in\nall copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\nTHE SOFTWARE.\n */\ninterface ERC165\n{\n\n  /**\n   * @dev Checks if the smart contract includes a specific interface.\n   * @notice This function uses less than 30,000 gas.\n   * @param _interfaceID The interface identifier, as specified in ERC-165.\n   * @return True if _interfaceID is supported, false otherwise.\n   */\n  function supportsInterface(\n    bytes4 _interfaceID\n  )\n    external\n    view\n    returns (bool);\n\n}\n",
+  "sourcePath": "/Users/hz/workspace/nightfall/contracts/ERC165.sol",
+  "ast": {
+    "absolutePath": "/Users/hz/workspace/nightfall/contracts/ERC165.sol",
+    "exportedSymbols": {
+      "ERC165": [
+        30
+      ]
+    },
+    "id": 31,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 22,
+        "literals": [
+          "solidity",
+          "0.5",
+          ".8"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:22:1"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": "@dev A standard for detecting smart contract interfaces.\nSee: https://github.com/ethereum/EIPs/blob/master/EIPS/eip-165.md.\nThe MIT License\nCopyright (c) 2017-2018 0xcert, d.o.o. https://0xcert.org\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\nThe above copyright notice and this permission notice shall be included in\nall copies or substantial portions of the Software.\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\nTHE SOFTWARE.",
+        "fullyImplemented": false,
+        "id": 30,
+        "linearizedBaseContracts": [
+          30
+        ],
+        "name": "ERC165",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": "@dev Checks if the smart contract includes a specific interface.\n@notice This function uses less than 30,000 gas.\n@param _interfaceID The interface identifier, as specified in ERC-165.\n@return True if _interfaceID is supported, false otherwise.",
+            "id": 29,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "supportsInterface",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 25,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 24,
+                  "name": "_interfaceID",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29,
+                  "src": "1593:19:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes4",
+                    "typeString": "bytes4"
+                  },
+                  "typeName": {
+                    "id": 23,
+                    "name": "bytes4",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1593:6:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes4",
+                      "typeString": "bytes4"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1587:29:1"
+            },
+            "returnParameters": {
+              "id": 28,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 27,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29,
+                  "src": "1652:4:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 26,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1652:4:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1651:6:1"
+            },
+            "scope": 30,
+            "src": "1561:97:1",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 31,
+        "src": "1262:399:1"
+      }
+    ],
+    "src": "0:1662:1"
+  },
+  "legacyAST": {
+    "absolutePath": "/Users/hz/workspace/nightfall/contracts/ERC165.sol",
+    "exportedSymbols": {
+      "ERC165": [
+        30
+      ]
+    },
+    "id": 31,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 22,
+        "literals": [
+          "solidity",
+          "0.5",
+          ".8"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:22:1"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": "@dev A standard for detecting smart contract interfaces.\nSee: https://github.com/ethereum/EIPs/blob/master/EIPS/eip-165.md.\nThe MIT License\nCopyright (c) 2017-2018 0xcert, d.o.o. https://0xcert.org\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\nThe above copyright notice and this permission notice shall be included in\nall copies or substantial portions of the Software.\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\nTHE SOFTWARE.",
+        "fullyImplemented": false,
+        "id": 30,
+        "linearizedBaseContracts": [
+          30
+        ],
+        "name": "ERC165",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": "@dev Checks if the smart contract includes a specific interface.\n@notice This function uses less than 30,000 gas.\n@param _interfaceID The interface identifier, as specified in ERC-165.\n@return True if _interfaceID is supported, false otherwise.",
+            "id": 29,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "supportsInterface",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 25,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 24,
+                  "name": "_interfaceID",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29,
+                  "src": "1593:19:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes4",
+                    "typeString": "bytes4"
+                  },
+                  "typeName": {
+                    "id": 23,
+                    "name": "bytes4",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1593:6:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes4",
+                      "typeString": "bytes4"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1587:29:1"
+            },
+            "returnParameters": {
+              "id": 28,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 27,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29,
+                  "src": "1652:4:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 26,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1652:4:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1651:6:1"
+            },
+            "scope": 30,
+            "src": "1561:97:1",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 31,
+        "src": "1262:399:1"
+      }
+    ],
+    "src": "0:1662:1"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.8+commit.23d335f2.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.0.11",
+  "updatedAt": "2019-09-16T13:04:36.716Z",
+  "devdoc": {
+    "details": "A standard for detecting smart contract interfaces. See: https://github.com/ethereum/EIPs/blob/master/EIPS/eip-165.md. The MIT License Copyright (c) 2017-2018 0xcert, d.o.o. https://0xcert.org Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.",
+    "methods": {
+      "supportsInterface(bytes4)": {
+        "details": "Checks if the smart contract includes a specific interface.",
+        "params": {
+          "_interfaceID": "The interface identifier, as specified in ERC-165."
+        },
+        "return": "True if _interfaceID is supported, false otherwise."
+      }
+    }
+  },
+  "userdoc": {
+    "methods": {
+      "supportsInterface(bytes4)": {
+        "notice": "This function uses less than 30,000 gas."
+      }
+    }
+  }
+}

@@ -1,0 +1,735 @@
+{
+  "contractName": "GM17_lib_v0",
+  "abi": [],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.8+commit.23d335f2\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"details\":\"Version 0 of verifying key struct format - for GM17 proofs.\",\"methods\":{},\"title\":\"GM17_v0\"},\"userdoc\":{\"methods\":{},\"notice\":\"Do not use this example in any production code!\"}},\"settings\":{\"compilationTarget\":{\"/Users/hz/workspace/nightfall/contracts/GM17_lib_v0.sol\":\"GM17_lib_v0\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/hz/workspace/nightfall/contracts/GM17_lib_v0.sol\":{\"keccak256\":\"0x52cf8a0bb0581b7b3e27b353afb1c572eb79675c98a77f5a76c7fc8d490d9686\",\"urls\":[\"bzzr://3b8421c226ddc04ca45c3f47e7f6e4ea9603810192fdc8e0921ed73b03c041a8\"]},\"/Users/hz/workspace/nightfall/contracts/Points.sol\":{\"keccak256\":\"0x7cd18fb3bea5108330ccccecfca415886f3614d3c2b97b048965e36f911d4d08\",\"urls\":[\"bzzr://33bc50c220af4c9dd9d48f5fb2558d2ffe367b2378a6f52b31e3ee6747685ceb\"]}},\"version\":1}",
+  "bytecode": "0x604c6023600b82828239805160001a607314601657fe5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea165627a7a72305820b32d37acdab50a86c3dcadc625174038ac2bb9394fbc8f44c3a6eba6aefc3c1f0029",
+  "deployedBytecode": "0x73000000000000000000000000000000000000000030146080604052600080fdfea165627a7a72305820b32d37acdab50a86c3dcadc625174038ac2bb9394fbc8f44c3a6eba6aefc3c1f0029",
+  "sourceMap": "1487:371:8:-;;132:2:-1;166:7;155:9;146:7;137:37;255:7;249:14;246:1;241:23;235:4;232:33;222:2;;269:9;222:2;293:9;290:1;283:20;323:4;314:7;306:22;347:7;338;331:24",
+  "deployedSourceMap": "1487:371:8:-;;;;;;;;",
+  "source": "/**\nCREDITS:\n// This file is MIT Licensed.\n//\n// Copyright 2017 Christian Reitwiessner\n// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\n// The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n// THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n// More information at https://gist.github.com/chriseth/f9be9d9391efc5beb9704255a8e2989d\nPoints library and this Struct library modularised by Michael Connor, EY, 2019\n*/\n\npragma solidity ^0.5.8;\n\nimport \"./Points.sol\";\n\n/**\n @title GM17_v0\n @dev Version 0 of verifying key struct format - for GM17 proofs.\n @notice Do not use this example in any production code!\n */\n\n\nlibrary GM17_lib_v0 {\n    using Points for *;\n\n    struct Vk_GM17_v0 {\n        Points.G2Point H;\n        Points.G1Point Galpha;\n        Points.G2Point Hbeta;\n        Points.G1Point Ggamma;\n        Points.G2Point Hgamma;\n        Points.G1Point[] query;\n    }\n\n    struct Proof_GM17_v0 {\n        Points.G1Point A;\n        Points.G2Point B;\n        Points.G1Point C;\n    }\n}\n",
+  "sourcePath": "/Users/hz/workspace/nightfall/contracts/GM17_lib_v0.sol",
+  "ast": {
+    "absolutePath": "/Users/hz/workspace/nightfall/contracts/GM17_lib_v0.sol",
+    "exportedSymbols": {
+      "GM17_lib_v0": [
+        1864
+      ]
+    },
+    "id": 1865,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1839,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".8"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "1289:23:8"
+      },
+      {
+        "absolutePath": "/Users/hz/workspace/nightfall/contracts/Points.sol",
+        "file": "./Points.sol",
+        "id": 1840,
+        "nodeType": "ImportDirective",
+        "scope": 1865,
+        "sourceUnit": 6578,
+        "src": "1314:22:8",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "library",
+        "documentation": "@title GM17_v0\n@dev Version 0 of verifying key struct format - for GM17 proofs.\n@notice Do not use this example in any production code!",
+        "fullyImplemented": true,
+        "id": 1864,
+        "linearizedBaseContracts": [
+          1864
+        ],
+        "name": "GM17_lib_v0",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "id": 1842,
+            "libraryName": {
+              "contractScope": null,
+              "id": 1841,
+              "name": "Points",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 6577,
+              "src": "1519:6:8",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_Points_$6577",
+                "typeString": "library Points"
+              }
+            },
+            "nodeType": "UsingForDirective",
+            "src": "1513:19:8",
+            "typeName": null
+          },
+          {
+            "canonicalName": "GM17_lib_v0.Vk_GM17_v0",
+            "id": 1856,
+            "members": [
+              {
+                "constant": false,
+                "id": 1844,
+                "name": "H",
+                "nodeType": "VariableDeclaration",
+                "scope": 1856,
+                "src": "1566:16:8",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_G2Point_$6576_storage_ptr",
+                  "typeString": "struct Points.G2Point"
+                },
+                "typeName": {
+                  "contractScope": null,
+                  "id": 1843,
+                  "name": "Points.G2Point",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 6576,
+                  "src": "1566:14:8",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_G2Point_$6576_storage_ptr",
+                    "typeString": "struct Points.G2Point"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 1846,
+                "name": "Galpha",
+                "nodeType": "VariableDeclaration",
+                "scope": 1856,
+                "src": "1592:21:8",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_G1Point_$6567_storage_ptr",
+                  "typeString": "struct Points.G1Point"
+                },
+                "typeName": {
+                  "contractScope": null,
+                  "id": 1845,
+                  "name": "Points.G1Point",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 6567,
+                  "src": "1592:14:8",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_G1Point_$6567_storage_ptr",
+                    "typeString": "struct Points.G1Point"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 1848,
+                "name": "Hbeta",
+                "nodeType": "VariableDeclaration",
+                "scope": 1856,
+                "src": "1623:20:8",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_G2Point_$6576_storage_ptr",
+                  "typeString": "struct Points.G2Point"
+                },
+                "typeName": {
+                  "contractScope": null,
+                  "id": 1847,
+                  "name": "Points.G2Point",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 6576,
+                  "src": "1623:14:8",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_G2Point_$6576_storage_ptr",
+                    "typeString": "struct Points.G2Point"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 1850,
+                "name": "Ggamma",
+                "nodeType": "VariableDeclaration",
+                "scope": 1856,
+                "src": "1653:21:8",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_G1Point_$6567_storage_ptr",
+                  "typeString": "struct Points.G1Point"
+                },
+                "typeName": {
+                  "contractScope": null,
+                  "id": 1849,
+                  "name": "Points.G1Point",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 6567,
+                  "src": "1653:14:8",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_G1Point_$6567_storage_ptr",
+                    "typeString": "struct Points.G1Point"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 1852,
+                "name": "Hgamma",
+                "nodeType": "VariableDeclaration",
+                "scope": 1856,
+                "src": "1684:21:8",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_G2Point_$6576_storage_ptr",
+                  "typeString": "struct Points.G2Point"
+                },
+                "typeName": {
+                  "contractScope": null,
+                  "id": 1851,
+                  "name": "Points.G2Point",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 6576,
+                  "src": "1684:14:8",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_G2Point_$6576_storage_ptr",
+                    "typeString": "struct Points.G2Point"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 1855,
+                "name": "query",
+                "nodeType": "VariableDeclaration",
+                "scope": 1856,
+                "src": "1715:22:8",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_array$_t_struct$_G1Point_$6567_storage_$dyn_storage_ptr",
+                  "typeString": "struct Points.G1Point[]"
+                },
+                "typeName": {
+                  "baseType": {
+                    "contractScope": null,
+                    "id": 1853,
+                    "name": "Points.G1Point",
+                    "nodeType": "UserDefinedTypeName",
+                    "referencedDeclaration": 6567,
+                    "src": "1715:14:8",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_G1Point_$6567_storage_ptr",
+                      "typeString": "struct Points.G1Point"
+                    }
+                  },
+                  "id": 1854,
+                  "length": null,
+                  "nodeType": "ArrayTypeName",
+                  "src": "1715:16:8",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_struct$_G1Point_$6567_storage_$dyn_storage_ptr",
+                    "typeString": "struct Points.G1Point[]"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "Vk_GM17_v0",
+            "nodeType": "StructDefinition",
+            "scope": 1864,
+            "src": "1538:206:8",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "GM17_lib_v0.Proof_GM17_v0",
+            "id": 1863,
+            "members": [
+              {
+                "constant": false,
+                "id": 1858,
+                "name": "A",
+                "nodeType": "VariableDeclaration",
+                "scope": 1863,
+                "src": "1781:16:8",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_G1Point_$6567_storage_ptr",
+                  "typeString": "struct Points.G1Point"
+                },
+                "typeName": {
+                  "contractScope": null,
+                  "id": 1857,
+                  "name": "Points.G1Point",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 6567,
+                  "src": "1781:14:8",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_G1Point_$6567_storage_ptr",
+                    "typeString": "struct Points.G1Point"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 1860,
+                "name": "B",
+                "nodeType": "VariableDeclaration",
+                "scope": 1863,
+                "src": "1807:16:8",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_G2Point_$6576_storage_ptr",
+                  "typeString": "struct Points.G2Point"
+                },
+                "typeName": {
+                  "contractScope": null,
+                  "id": 1859,
+                  "name": "Points.G2Point",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 6576,
+                  "src": "1807:14:8",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_G2Point_$6576_storage_ptr",
+                    "typeString": "struct Points.G2Point"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 1862,
+                "name": "C",
+                "nodeType": "VariableDeclaration",
+                "scope": 1863,
+                "src": "1833:16:8",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_G1Point_$6567_storage_ptr",
+                  "typeString": "struct Points.G1Point"
+                },
+                "typeName": {
+                  "contractScope": null,
+                  "id": 1861,
+                  "name": "Points.G1Point",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 6567,
+                  "src": "1833:14:8",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_G1Point_$6567_storage_ptr",
+                    "typeString": "struct Points.G1Point"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "Proof_GM17_v0",
+            "nodeType": "StructDefinition",
+            "scope": 1864,
+            "src": "1750:106:8",
+            "visibility": "public"
+          }
+        ],
+        "scope": 1865,
+        "src": "1487:371:8"
+      }
+    ],
+    "src": "1289:570:8"
+  },
+  "legacyAST": {
+    "absolutePath": "/Users/hz/workspace/nightfall/contracts/GM17_lib_v0.sol",
+    "exportedSymbols": {
+      "GM17_lib_v0": [
+        1864
+      ]
+    },
+    "id": 1865,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1839,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".8"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "1289:23:8"
+      },
+      {
+        "absolutePath": "/Users/hz/workspace/nightfall/contracts/Points.sol",
+        "file": "./Points.sol",
+        "id": 1840,
+        "nodeType": "ImportDirective",
+        "scope": 1865,
+        "sourceUnit": 6578,
+        "src": "1314:22:8",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "library",
+        "documentation": "@title GM17_v0\n@dev Version 0 of verifying key struct format - for GM17 proofs.\n@notice Do not use this example in any production code!",
+        "fullyImplemented": true,
+        "id": 1864,
+        "linearizedBaseContracts": [
+          1864
+        ],
+        "name": "GM17_lib_v0",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "id": 1842,
+            "libraryName": {
+              "contractScope": null,
+              "id": 1841,
+              "name": "Points",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 6577,
+              "src": "1519:6:8",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_Points_$6577",
+                "typeString": "library Points"
+              }
+            },
+            "nodeType": "UsingForDirective",
+            "src": "1513:19:8",
+            "typeName": null
+          },
+          {
+            "canonicalName": "GM17_lib_v0.Vk_GM17_v0",
+            "id": 1856,
+            "members": [
+              {
+                "constant": false,
+                "id": 1844,
+                "name": "H",
+                "nodeType": "VariableDeclaration",
+                "scope": 1856,
+                "src": "1566:16:8",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_G2Point_$6576_storage_ptr",
+                  "typeString": "struct Points.G2Point"
+                },
+                "typeName": {
+                  "contractScope": null,
+                  "id": 1843,
+                  "name": "Points.G2Point",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 6576,
+                  "src": "1566:14:8",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_G2Point_$6576_storage_ptr",
+                    "typeString": "struct Points.G2Point"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 1846,
+                "name": "Galpha",
+                "nodeType": "VariableDeclaration",
+                "scope": 1856,
+                "src": "1592:21:8",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_G1Point_$6567_storage_ptr",
+                  "typeString": "struct Points.G1Point"
+                },
+                "typeName": {
+                  "contractScope": null,
+                  "id": 1845,
+                  "name": "Points.G1Point",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 6567,
+                  "src": "1592:14:8",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_G1Point_$6567_storage_ptr",
+                    "typeString": "struct Points.G1Point"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 1848,
+                "name": "Hbeta",
+                "nodeType": "VariableDeclaration",
+                "scope": 1856,
+                "src": "1623:20:8",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_G2Point_$6576_storage_ptr",
+                  "typeString": "struct Points.G2Point"
+                },
+                "typeName": {
+                  "contractScope": null,
+                  "id": 1847,
+                  "name": "Points.G2Point",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 6576,
+                  "src": "1623:14:8",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_G2Point_$6576_storage_ptr",
+                    "typeString": "struct Points.G2Point"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 1850,
+                "name": "Ggamma",
+                "nodeType": "VariableDeclaration",
+                "scope": 1856,
+                "src": "1653:21:8",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_G1Point_$6567_storage_ptr",
+                  "typeString": "struct Points.G1Point"
+                },
+                "typeName": {
+                  "contractScope": null,
+                  "id": 1849,
+                  "name": "Points.G1Point",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 6567,
+                  "src": "1653:14:8",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_G1Point_$6567_storage_ptr",
+                    "typeString": "struct Points.G1Point"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 1852,
+                "name": "Hgamma",
+                "nodeType": "VariableDeclaration",
+                "scope": 1856,
+                "src": "1684:21:8",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_G2Point_$6576_storage_ptr",
+                  "typeString": "struct Points.G2Point"
+                },
+                "typeName": {
+                  "contractScope": null,
+                  "id": 1851,
+                  "name": "Points.G2Point",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 6576,
+                  "src": "1684:14:8",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_G2Point_$6576_storage_ptr",
+                    "typeString": "struct Points.G2Point"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 1855,
+                "name": "query",
+                "nodeType": "VariableDeclaration",
+                "scope": 1856,
+                "src": "1715:22:8",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_array$_t_struct$_G1Point_$6567_storage_$dyn_storage_ptr",
+                  "typeString": "struct Points.G1Point[]"
+                },
+                "typeName": {
+                  "baseType": {
+                    "contractScope": null,
+                    "id": 1853,
+                    "name": "Points.G1Point",
+                    "nodeType": "UserDefinedTypeName",
+                    "referencedDeclaration": 6567,
+                    "src": "1715:14:8",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_G1Point_$6567_storage_ptr",
+                      "typeString": "struct Points.G1Point"
+                    }
+                  },
+                  "id": 1854,
+                  "length": null,
+                  "nodeType": "ArrayTypeName",
+                  "src": "1715:16:8",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_struct$_G1Point_$6567_storage_$dyn_storage_ptr",
+                    "typeString": "struct Points.G1Point[]"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "Vk_GM17_v0",
+            "nodeType": "StructDefinition",
+            "scope": 1864,
+            "src": "1538:206:8",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "GM17_lib_v0.Proof_GM17_v0",
+            "id": 1863,
+            "members": [
+              {
+                "constant": false,
+                "id": 1858,
+                "name": "A",
+                "nodeType": "VariableDeclaration",
+                "scope": 1863,
+                "src": "1781:16:8",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_G1Point_$6567_storage_ptr",
+                  "typeString": "struct Points.G1Point"
+                },
+                "typeName": {
+                  "contractScope": null,
+                  "id": 1857,
+                  "name": "Points.G1Point",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 6567,
+                  "src": "1781:14:8",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_G1Point_$6567_storage_ptr",
+                    "typeString": "struct Points.G1Point"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 1860,
+                "name": "B",
+                "nodeType": "VariableDeclaration",
+                "scope": 1863,
+                "src": "1807:16:8",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_G2Point_$6576_storage_ptr",
+                  "typeString": "struct Points.G2Point"
+                },
+                "typeName": {
+                  "contractScope": null,
+                  "id": 1859,
+                  "name": "Points.G2Point",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 6576,
+                  "src": "1807:14:8",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_G2Point_$6576_storage_ptr",
+                    "typeString": "struct Points.G2Point"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 1862,
+                "name": "C",
+                "nodeType": "VariableDeclaration",
+                "scope": 1863,
+                "src": "1833:16:8",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_G1Point_$6567_storage_ptr",
+                  "typeString": "struct Points.G1Point"
+                },
+                "typeName": {
+                  "contractScope": null,
+                  "id": 1861,
+                  "name": "Points.G1Point",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 6567,
+                  "src": "1833:14:8",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_G1Point_$6567_storage_ptr",
+                    "typeString": "struct Points.G1Point"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "Proof_GM17_v0",
+            "nodeType": "StructDefinition",
+            "scope": 1864,
+            "src": "1750:106:8",
+            "visibility": "public"
+          }
+        ],
+        "scope": 1865,
+        "src": "1487:371:8"
+      }
+    ],
+    "src": "1289:570:8"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.8+commit.23d335f2.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.0.11",
+  "updatedAt": "2019-09-16T13:04:36.737Z",
+  "devdoc": {
+    "details": "Version 0 of verifying key struct format - for GM17 proofs.",
+    "methods": {},
+    "title": "GM17_v0"
+  },
+  "userdoc": {
+    "methods": {},
+    "notice": "Do not use this example in any production code!"
+  }
+}
