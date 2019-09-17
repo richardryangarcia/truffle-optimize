@@ -1,4 +1,9 @@
-const { readdirSync, appendFileSync, readFileSync } = require("fs");
+const {
+  readdirSync,
+  appendFileSync,
+  readFileSync,
+  writeFileSync
+} = require("fs");
 const optimizeFile = require("./optimize");
 const {
   oneChar,
@@ -57,26 +62,38 @@ const parseSignature = signature => {
   }
 };
 
+const updateFunctionInContract = (result, workingDir) => {
+  let new_contents = "";
+  let stringToReplace = `function[ \t]+${result[0]}\\(`;
+  let stringWithLeadingSpace = new RegExp(stringToReplace, "g");
+  try {
+    const file_contents = readFileSync(
+      `${workingDir}/contracts/${result[5]}.sol`,
+      "utf8"
+    );
+    new_contents = file_contents.replace(
+      stringWithLeadingSpace,
+      `function ${result[2].substring(0, result[2].indexOf("("))}(`
+    );
+    writeFileSync(`${workingDir}/contracts/${result[5]}.sol`, new_contents);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 module.exports = async config => {
   const workingDir = config.working_directory;
   const args = config._;
   const contract = config.c;
   const numberOfBytes = config.b;
-  const createIndex = config.createIndex;
-  let functionCount = 0;
-  let totalGasSaved = 0.0;
-
+  const modify = config.modify;
   const functions = args.slice(1, args.length);
   const contractsBuildDir = config.contracts_build_directory;
-  console.log(contractsBuildDir);
-
+  const files = contract ? [contract] : readdirSync(contractsBuildDir); //get contracts json files to be optimized
+  const contractFiles = readdirSync(`${workingDir}/contracts`); //ensure there's a contract in the contract directory
+  let functionCount = 0;
+  let totalGasSaved = 0.0;
   let availableContracts = [];
-
-  //get contract Json files for all contracts to be optimized
-  const files = contract ? [contract] : readdirSync(contractsBuildDir);
-
-  //ensure contract json has a contract in contracts directory
-  const contractFiles = readdirSync(`${workingDir}/contracts`);
 
   filteredFiles = files.filter(file => {
     let fileName = file.replace(".json", "");
@@ -183,6 +200,10 @@ module.exports = async config => {
       )}\";\n`,
       () => console.log("saved to file")
     );
+
+    if (modify) {
+      updateFunctionInContract(result, workingDir);
+    }
 
     console.log(`${result[1]} >> ${result[2]}`);
   });
